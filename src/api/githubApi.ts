@@ -8,7 +8,7 @@ const githubApi = createApi({
 	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://api.github.com/' }),
 	endpoints: (builder) => ({
-		getRepositories: builder.query<SearchRepositoriesResponse, string>({
+		getRepositories: builder.mutation<SearchRepositoriesResponse, string>({
 			query: (searchName) => ({
 			  url: '/search/repositories',
 			  params: {
@@ -20,6 +20,6 @@ const githubApi = createApi({
 	}),
 });
 
-export const { useGetRepositoriesQuery } = githubApi;
+export const { useGetRepositoriesMutation } = githubApi;
 
 export default githubApi;
