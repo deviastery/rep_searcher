@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { SearchRepositoriesResponse } from '@models/tasks';
+import { SearchRepositoriesResponse } from 'src/models/tasks';
 
 const githubApi = createApi({
 	reducerPath: 'githubApi',
