@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 import styles from './RepDetailsWorkSpace.module.sass';
 import { RepDetailsDataDto } from 'src/models/tasks';
@@ -9,15 +10,29 @@ type Props = {
 };
 
 const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
-  return !repDetailsData ? (
-		<Box className={styles.workSpace}>
-      Выберете репозиторий
-    </Box>
-	) : (
+  if (!repDetailsData) {
+    return (
+      <Box className={styles.notData}>
+        Выберете репозиторий
+      </Box>
+    );
+  }
+
+  const { name, language, stargazers_count, description, license } = repDetailsData;
+  return (
     <Box className={styles.workSpace}>
-      Something
+      <Box className={styles.tableTitle}>{name}</Box>
+      <Box className={styles.iconsBox}>
+        <Box className={styles.languageBox}>{language}</Box>
+        <Box className={styles.stargazersBox}>
+          <StarSharpIcon className={styles.starIcon}/>
+          {stargazers_count}
+        </Box>
+      </Box>
+      <Box className={styles.textBox}>{description}</Box>
+      {license && <Box className={styles.textBox}>{license.name}</Box>}
     </Box>
   );
-}
+};
 
 export default RepDetailsWorkSpace;
