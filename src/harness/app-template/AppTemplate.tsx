@@ -7,7 +7,7 @@ import {
 	InputBase,
 } from '@mui/material';
 
-import styles from './AppTemplate.module.scss';
+import styles from './AppTemplate.module.sass';
 import { SearchRepositoriesResponse } from 'src/models/tasks';
 import { useGetRepositoriesMutation } from 'src/api/githubApi';
 

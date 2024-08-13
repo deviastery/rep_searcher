@@ -17,9 +17,11 @@ type Repository = {
 type SearchRepositoriesResponse = {
 	total_count: number;
 	incomplete_results: boolean;
-	items: RepDataDto[];
+	items: Repository[];
 };
 
-type RepDataDto = Pick<Repository, 'name' | 'language' | 'forks_count' | 'stargazers_count' | 'updated_at'>;
+type RepTableDataDto = Pick<Repository, 'name' | 'language' | 'forks_count' | 'stargazers_count' | 'updated_at'>;
 
-export type { SearchRepositoriesResponse, RepDataDto };
+type RepDetailsDataDto = Pick<Repository, 'name' | 'description' | 'language' | 'stargazers_count' | 'license'>;
+
+export type { Repository, SearchRepositoriesResponse, RepTableDataDto, RepDetailsDataDto };

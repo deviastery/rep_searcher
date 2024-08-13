@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, styled } from '@mui/material';
 
 const Workspace = styled(Box)({
-	display: 'flex',
 	width: '100%',
 	height: 'calc(100vh - 85px)',
   marginTop: '50px',

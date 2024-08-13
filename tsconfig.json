@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"] 
-    },
     "target": "es5",
     "lib": [
       "dom",
@@ -26,5 +23,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/pages/repositories-search-results/RepWorkSpace/RepWorkSpace.tsx"  ]
 }
