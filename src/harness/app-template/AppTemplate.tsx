@@ -12,11 +12,11 @@ import { SearchRepositoriesResponse } from 'src/models/tasks';
 import { useGetRepositoriesMutation } from 'src/api/githubApi';
 
 type Props = {
-	// setTableData: (data: SearchRepositoriesResponse) => void;
+	setRepData: (data: SearchRepositoriesResponse) => void;
 	children: React.ReactNode;
 };
 
-const AppTemplate = ({ children }: Props) => {
+const AppTemplate = ({ children, setRepData }: Props) => {
 	const [searchNameRep, setSearchNameRep] = useState('');
 
 	const [getRepositories] = useGetRepositoriesMutation();
@@ -26,6 +26,7 @@ const AppTemplate = ({ children }: Props) => {
 			.unwrap()
 			.then((data) => {
 				console.log(data);
+				setRepData(data);
 			})
 			.catch(() => {});
 	};

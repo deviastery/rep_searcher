@@ -17,7 +17,9 @@ type Repository = {
 type SearchRepositoriesResponse = {
 	total_count: number;
 	incomplete_results: boolean;
-	items: Repository[];
+	items: RepDataDto[];
 };
 
-export type { SearchRepositoriesResponse };
+type RepDataDto = Pick<Repository, 'name' | 'language' | 'forks_count' | 'stargazers_count' | 'updated_at'>;
+
+export type { SearchRepositoriesResponse, RepDataDto };
