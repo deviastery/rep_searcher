@@ -2,18 +2,17 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { Box } from '@mui/material';
 
 import styles from './RepTableWorkSpace.module.sass';
-import { RepDetailsDataDto, Repository, SearchRepositoriesRequest } from 'src/models/tasks';
+import { Repository, SearchRepositoriesRequest } from 'src/models/tasks';
 import BasicTable from 'src/shared/business/organisms/BasicTable';
-import { ColumnDef } from '@tanstack/table-core';
+import { ColumnDef, Row } from '@tanstack/table-core';
 import GetRepTableColumns from '../repositories-search-results/repTableColumns';
-import { getRowDetails } from 'src/shared/utils/getData/getRowDetails';
 import Pagination from 'src/shared/business/organisms/Pagination';
 
 type Props = {
 	repTableData: Repository[];
   searchRep: SearchRepositoriesRequest;
   setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
-	setRepDetailsData: React.Dispatch<SetStateAction<RepDetailsDataDto | null>>;
+	setRepDetailsData: React.Dispatch<SetStateAction<Row<Repository> | null>>;
   countResults: number;
 };
 
@@ -25,7 +24,6 @@ const RepTableWorkSpace = ({ repTableData, searchRep, setSearchRep, setRepDetail
           data={repTableData}
           columns={GetRepTableColumns() as ColumnDef<Repository, string>[]}
           setRowData={setRepDetailsData}
-          getRowData={getRowDetails}
         />
         <Pagination pagesInfo={searchRep} setPagesInfo={setSearchRep} countResults={countResults}/>
     </Box>

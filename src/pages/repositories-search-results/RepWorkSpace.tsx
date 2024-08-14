@@ -5,6 +5,7 @@ import styles from './RepWorkSpace.module.sass';
 import { RepDetailsDataDto, Repository, SearchRepositoriesRequest } from 'src/models/tasks';
 import RepDetailsWorkSpace from '../repositories-details/RepDetailsWorkSpace';
 import RepTableWorkSpace from '../repositories-table/RepTableWorkSpace';
+import { Row } from '@tanstack/table-core';
 
 type Props = {
 	repData: Repository[];
@@ -14,7 +15,7 @@ type Props = {
 };
 
 const RepWorkSpace = ({ repData, searchRep, setSearchRep, countResults }: Props) => {
-  const [repDetailsData, setRepDetailsData] = useState<RepDetailsDataDto | null>(null)
+  const [repDetailsData, setRepDetailsData] = useState<Row<Repository> | null>(null);
   
   return !repData || !repData?.length ? (
 		<Box className={styles.notData}>

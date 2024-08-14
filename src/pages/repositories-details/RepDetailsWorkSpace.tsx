@@ -3,11 +3,12 @@ import { Box } from '@mui/material';
 import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 import styles from './RepDetailsWorkSpace.module.sass';
-import { RepDetailsDataDto } from 'src/models/tasks';
+import { RepDetailsDataDto, Repository } from 'src/models/tasks';
 import TopicBox from 'src/shared/business/molecules/TopicBox';
+import { Row } from '@tanstack/table-core';
 
 type Props = {
-	repDetailsData: RepDetailsDataDto | null;
+	repDetailsData: Row<Repository> | null;
 };
 
 const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
@@ -19,7 +20,7 @@ const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
     );
   }
 
-  const { name, language, stargazers_count, topics, license } = repDetailsData;
+  const { name, language, stargazers_count, topics, license } = repDetailsData.original;
   const allTopics = language ? [language, ...topics] : topics;
   return (
     <Box className={styles.workSpace}>

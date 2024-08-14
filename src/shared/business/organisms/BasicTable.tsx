@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { Box } from '@mui/material';
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, Row, useReactTable } from '@tanstack/react-table';
 import styles from './BasicTable.module.sass';
@@ -7,15 +7,13 @@ import { RepDetailsDataDto, Repository, RepTableDataDto } from 'src/models/tasks
 type Props = {
 	columns: Array<ColumnDef<Repository, string>>;
 	data: Repository[];
-	setRowData: React.Dispatch<React.SetStateAction<RepDetailsDataDto | null>>
-	getRowData?: (row: Row<Repository>) => RepDetailsDataDto;
+	setRowData?: Dispatch<React.SetStateAction<Row<Repository> | null>>
 };
 
 const BasicTable = ({
 	columns,
 	data,
 	setRowData,
-	getRowData,
 }: Props) => {
 
 	const table = useReactTable({
@@ -43,7 +41,7 @@ const BasicTable = ({
 				))}
 				<tbody>
 					{table.getRowModel().rows.map((row) => (
-							<tr key={row.id} className={styles.tableRow} onClick={() => getRowData && setRowData(getRowData(row))}>
+							<tr key={row.id} className={styles.tableRow} onClick={() => setRowData && setRowData(row)}>
 								{row.getVisibleCells().map((cell) => (
 									<td
 										key={cell.id}
