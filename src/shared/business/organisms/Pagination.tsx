@@ -5,9 +5,10 @@ import { SearchRepositoriesRequest } from 'src/models/tasks';
 type Props = {
 	pagesInfo: SearchRepositoriesRequest;
 	setPagesInfo: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
+	countResults: number;
 };
 
-const Pagination = ({ pagesInfo, setPagesInfo }: Props) => {
+const Pagination = ({ pagesInfo, setPagesInfo, countResults }: Props) => {
   
 	const handleChangePage = (
 	  event: React.MouseEvent<HTMLButtonElement> | null,
@@ -26,7 +27,7 @@ const Pagination = ({ pagesInfo, setPagesInfo }: Props) => {
 	return (
 		<TablePagination
 			component="div"
-			count={100}
+			count={countResults}
 			page={pagesInfo.page ? (pagesInfo.page - 1) : 1}
 			onPageChange={handleChangePage}
 			rowsPerPage={pagesInfo.per_page || 7}

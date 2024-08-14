@@ -14,9 +14,10 @@ type Props = {
   searchRep: SearchRepositoriesRequest;
   setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
 	setRepDetailsData: React.Dispatch<SetStateAction<RepDetailsDataDto | null>>;
+  countResults: number;
 };
 
-const RepTableWorkSpace = ({ repTableData, searchRep, setSearchRep, setRepDetailsData }: Props) => {
+const RepTableWorkSpace = ({ repTableData, searchRep, setSearchRep, setRepDetailsData, countResults }: Props) => {
   return (
     <Box className={styles.tableWorkSpace}>
         <Box className={styles.tableTitle}>Результаты поиска</Box>
@@ -26,7 +27,7 @@ const RepTableWorkSpace = ({ repTableData, searchRep, setSearchRep, setRepDetail
           setRowData={setRepDetailsData}
           getRowData={getRowDetails}
         />
-        <Pagination pagesInfo={searchRep} setPagesInfo={setSearchRep}/>
+        <Pagination pagesInfo={searchRep} setPagesInfo={setSearchRep} countResults={countResults}/>
     </Box>
   );
 }

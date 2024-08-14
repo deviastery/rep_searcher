@@ -10,9 +10,10 @@ type Props = {
 	repData: Repository[];
   searchRep: SearchRepositoriesRequest;
   setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
+  countResults: number;
 };
 
-const RepWorkSpace = ({ repData, searchRep, setSearchRep }: Props) => {
+const RepWorkSpace = ({ repData, searchRep, setSearchRep, countResults }: Props) => {
   const [repDetailsData, setRepDetailsData] = useState<RepDetailsDataDto | null>(null)
   
   return !repData || !repData?.length ? (
@@ -21,7 +22,13 @@ const RepWorkSpace = ({ repData, searchRep, setSearchRep }: Props) => {
 		</Box>
 	) : (
     <Box className={styles.repWorkSpace}>
-      <RepTableWorkSpace repTableData={repData || []} setRepDetailsData={setRepDetailsData} searchRep={searchRep} setSearchRep={setSearchRep}/>
+      <RepTableWorkSpace 
+        repTableData={repData || []} 
+        setRepDetailsData={setRepDetailsData} 
+        searchRep={searchRep} 
+        setSearchRep={setSearchRep} 
+        countResults={countResults}
+      />
       <RepDetailsWorkSpace repDetailsData={repDetailsData}/>
     </Box>
   );

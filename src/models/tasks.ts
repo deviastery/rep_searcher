@@ -3,6 +3,7 @@ type Repository = {
 	name: string;
 	full_name: string;
 	description: string | null;
+	topics: string[];
 	html_url: string;
 	language: string | null; // Язык репозитория
 	forks_count: number;     // Число форков
@@ -28,6 +29,6 @@ type SearchRepositoriesRequest = {
 
 type RepTableDataDto = Pick<Repository, 'name' | 'language' | 'forks_count' | 'stargazers_count' | 'updated_at'>;
 
-type RepDetailsDataDto = Pick<Repository, 'name' | 'description' | 'language' | 'stargazers_count' | 'license'>;
+type RepDetailsDataDto = Pick<Repository, 'name' | 'topics' | 'language' | 'stargazers_count' | 'license'>;
 
 export type { Repository, SearchRepositoriesResponse, RepTableDataDto, RepDetailsDataDto, SearchRepositoriesRequest };

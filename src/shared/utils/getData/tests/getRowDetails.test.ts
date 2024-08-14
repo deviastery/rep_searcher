@@ -10,24 +10,26 @@ describe('getRowDetails', () => {
 		 full_name: 'Test Name',
 		 html_url: 'https://github.com/user/Test-Name',
 		 description: 'Test Description',
+		 topics: ["cli", "stock", "stock-analysis"],
 		 language: 'TypeScript',
 		 stargazers_count: 100,
 		 forks_count: 50,
 		 updated_at: '2023-10-26T12:00:00Z',
 		 license: { name: 'MIT' },
-		 name: ''
+		 name: 'Test Name'
 	 },
      {
 		 id: 2,
 		 full_name: 'Test Name 2',
 		 html_url: 'https://github.com/user/Test-Name-2',
 		 description: 'Test Description 2',
+		 topics: ["cli", "stock-analysis"],
 		 language: 'Python',
 		 stargazers_count: 200,
 		 forks_count: 100,
 		 updated_at: '2023-10-27T14:30:00Z',
 		 license: { name: 'Apache 2.0' },
-		 name: ''
+		 name: 'Test Name 2'
 	 },
    ];
    
@@ -38,8 +40,8 @@ describe('getRowDetails', () => {
 				header: 'Name',
 			},
 			{
-				accessorKey: 'description',
-				header: 'Description',
+				accessorKey: 'topics',
+				header: 'Topics',
 			},
 			{
 				accessorKey: 'language',
@@ -66,7 +68,7 @@ describe('getRowDetails', () => {
 	test('should return correct details from row object', () => {
 	  const expectedDetails = {
 		name: 'Test Name',
-		description: 'Test Description',
+		topics: ["cli", "stock-analysis"],
 		language: 'TypeScript',
 		stargazers_count: 100,
 		license: { name: 'MIT' },
@@ -80,7 +82,7 @@ describe('getRowDetails', () => {
 	test('should handle missing properties gracefully', () => {
 		const expectedDetails = {
 		  name: 'Test Name 2',
-		  description: 'Test Description 2',
+		  topics: ["cli", "stock", "stock-analysis"],
 		  language: 'Python',
 		  stargazers_count: 200,
 		  license: { name: 'Apache 2.0' },

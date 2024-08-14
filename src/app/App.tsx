@@ -18,7 +18,7 @@ const App = () => {
         <CssBaseline />
         <AppTemplate setRepData={setRepData} searchRep={searchRep} setSearchRep={setSearchRep}>
           <PageTemplate>
-            <RepWorkSpace repData={repData?.items || []} setSearchRep={setSearchRep} searchRep={searchRep}/>
+            <RepWorkSpace repData={repData?.items || []} setSearchRep={setSearchRep} searchRep={searchRep} countResults={repData?.total_count || 100}/>
           </PageTemplate>
         </AppTemplate>
       </ThemeProvider>

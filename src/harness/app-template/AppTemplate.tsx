@@ -35,7 +35,7 @@ const AppTemplate = ({ searchRep, setSearchRep, setRepData, children }: Props) =
 	}, [searchRep])
 
 	const handleClick = () => {
-		setSearchRep({...searchRep, query: searchRepName});
+		setSearchRep({query: searchRepName, per_page: 7, page: 1});
 	};
 
 	return (
