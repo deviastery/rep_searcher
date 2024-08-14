@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import {
 	AppBar,
 	Box,
@@ -8,27 +8,34 @@ import {
 } from '@mui/material';
 
 import styles from './AppTemplate.module.sass';
-import { SearchRepositoriesResponse } from 'src/models/tasks';
+import { SearchRepositoriesRequest, SearchRepositoriesResponse } from 'src/models/tasks';
 import { useGetRepositoriesMutation } from 'src/api/githubApi';
 
 type Props = {
+	searchRep: SearchRepositoriesRequest;
+	setSearchRep: Dispatch<React.SetStateAction<SearchRepositoriesRequest>>;
 	setRepData: (data: SearchRepositoriesResponse) => void;
 	children: React.ReactNode;
 };
 
-const AppTemplate = ({ children, setRepData }: Props) => {
-	const [searchNameRep, setSearchNameRep] = useState('');
+const AppTemplate = ({ searchRep, setSearchRep, setRepData, children }: Props) => {
+	const [searchRepName, setSearchRepName] = useState('');
 
 	const [getRepositories] = useGetRepositoriesMutation();
 
+	useEffect(() => {
+		if (searchRep.query !== '') {
+			getRepositories(searchRep)
+				.unwrap()
+				.then((data) => {
+					setRepData(data);
+				})
+				.catch(() => {});
+		}
+	}, [searchRep])
+
 	const handleClick = () => {
-		getRepositories(searchNameRep)
-			.unwrap()
-			.then((data) => {
-				console.log(data);
-				setRepData(data);
-			})
-			.catch(() => {});
+		setSearchRep({...searchRep, query: searchRepName});
 	};
 
 	return (
@@ -38,7 +45,7 @@ const AppTemplate = ({ children, setRepData }: Props) => {
 					<InputBase 
 						placeholder="Введите поисковый запрос" 
 						className={styles.searchInput} 
-						onChange={(e) => setSearchNameRep(e.target.value)} 
+						onChange={(e) => setSearchRepName(e.target.value)} 
 					/>
 					<Button 
 						variant="contained" 

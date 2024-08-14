@@ -13,7 +13,7 @@ const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
   if (!repDetailsData) {
     return (
       <Box className={styles.notData}>
-        Выберете репозиторий
+        Выберите репозиторий
       </Box>
     );
   }
@@ -23,7 +23,7 @@ const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
     <Box className={styles.workSpace}>
       <Box className={styles.tableTitle}>{name}</Box>
       <Box className={styles.iconsBox}>
-        <Box className={styles.languageBox}>{language}</Box>
+        {language && <Box className={styles.languageBox}>{language}</Box>}
         <Box className={styles.stargazersBox}>
           <StarSharpIcon className={styles.starIcon}/>
           {stargazers_count}

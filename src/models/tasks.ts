@@ -20,8 +20,14 @@ type SearchRepositoriesResponse = {
 	items: Repository[];
 };
 
+type SearchRepositoriesRequest = {
+	query: string; 
+	page?: number; 
+	per_page?: number;
+};
+
 type RepTableDataDto = Pick<Repository, 'name' | 'language' | 'forks_count' | 'stargazers_count' | 'updated_at'>;
 
 type RepDetailsDataDto = Pick<Repository, 'name' | 'description' | 'language' | 'stargazers_count' | 'license'>;
 
-export type { Repository, SearchRepositoriesResponse, RepTableDataDto, RepDetailsDataDto };
+export type { Repository, SearchRepositoriesResponse, RepTableDataDto, RepDetailsDataDto, SearchRepositoriesRequest };

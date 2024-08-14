@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { SearchRepositoriesResponse } from 'src/models/tasks';
+import { SearchRepositoriesRequest, SearchRepositoriesResponse } from 'src/models/tasks';
 
 const githubApi = createApi({
 	reducerPath: 'githubApi',
@@ -8,12 +8,13 @@ const githubApi = createApi({
 	refetchOnMountOrArgChange: true,
 	baseQuery: fetchBaseQuery({ baseUrl: 'https://api.github.com/' }),
 	endpoints: (builder) => ({
-		getRepositories: builder.mutation<SearchRepositoriesResponse, string>({
-			query: (searchName) => ({
+		getRepositories: builder.mutation<SearchRepositoriesResponse, SearchRepositoriesRequest>({
+			query: ({ query, page, per_page }) => ({
 			  url: '/search/repositories',
 			  params: {
-				q: searchName,
-				per_page: 8,
+				q: query,
+				page,
+				per_page,
 			  },
 			}),
 		}),

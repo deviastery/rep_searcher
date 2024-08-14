@@ -5,19 +5,20 @@ import PageTemplate from 'src/shared/common/molecules/PageTemplate';
 import theme from 'src/styles/theme';
 import { store } from 'src/store/store';
 import { Provider } from 'react-redux';
-import { SearchRepositoriesResponse } from 'src/models/tasks';
-import RepDetailsWorkSpace from 'src/pages/repositories-details/RepDetailsWorkSpace';
+import { SearchRepositoriesRequest, SearchRepositoriesResponse } from 'src/models/tasks';
 import RepWorkSpace from 'src/pages/repositories-search-results/RepWorkSpace';
 
 const App = () => {
-  const [repData, setRepData] = useState<SearchRepositoriesResponse>()
+  const [repData, setRepData] = useState<SearchRepositoriesResponse>();
+  const [searchRep, setSearchRep] = useState<SearchRepositoriesRequest>({query: '', per_page: 7, page: 1});
+
   return (
 		<Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppTemplate setRepData={setRepData}>
+        <AppTemplate setRepData={setRepData} searchRep={searchRep} setSearchRep={setSearchRep}>
           <PageTemplate>
-            <RepWorkSpace repData={repData?.items || []}/>
+            <RepWorkSpace repData={repData?.items || []} setSearchRep={setSearchRep} searchRep={searchRep}/>
           </PageTemplate>
         </AppTemplate>
       </ThemeProvider>

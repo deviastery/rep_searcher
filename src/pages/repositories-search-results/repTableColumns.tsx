@@ -8,7 +8,7 @@ const columnHelper = createColumnHelper<Repository>();
 const GetRepTableColumns = () => {
 	return [
 		columnHelper.accessor('name', {
-			size: 100,
+			size: 250,
 			header: () => <span>Название</span>,
 			cell: (info) => <span>{info.getValue()}</span>,
 		}),
@@ -28,7 +28,7 @@ const GetRepTableColumns = () => {
 			cell: (info) => <span>{info.getValue()}</span>,
 		}),
 		columnHelper.accessor('updated_at', {
-			size: 250,
+			size: 200,
 			header: () => <span>Дата обновления</span>,
 			cell: (info) => <span>{formatDate(new Date(info.getValue()))}</span>,
 		}),

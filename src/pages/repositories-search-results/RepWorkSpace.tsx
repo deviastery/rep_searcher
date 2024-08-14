@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Box } from '@mui/material';
 
 import styles from './RepWorkSpace.module.sass';
-import { RepDetailsDataDto, RepTableDataDto, Repository } from 'src/models/tasks';
-import BasicTable from 'src/shared/business/organisms/BasicTable';
-import GetRepTableColumns from './repTableColumns';
-import { ColumnDef } from '@tanstack/table-core';
+import { RepDetailsDataDto, Repository, SearchRepositoriesRequest } from 'src/models/tasks';
 import RepDetailsWorkSpace from '../repositories-details/RepDetailsWorkSpace';
 import RepTableWorkSpace from '../repositories-table/RepTableWorkSpace';
 
 type Props = {
 	repData: Repository[];
+  searchRep: SearchRepositoriesRequest;
+  setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
 };
 
-const RepWorkSpace = ({ repData }: Props) => {
+const RepWorkSpace = ({ repData, searchRep, setSearchRep }: Props) => {
   const [repDetailsData, setRepDetailsData] = useState<RepDetailsDataDto | null>(null)
   
   return !repData || !repData?.length ? (
@@ -22,7 +21,7 @@ const RepWorkSpace = ({ repData }: Props) => {
 		</Box>
 	) : (
     <Box className={styles.repWorkSpace}>
-      <RepTableWorkSpace repTableData={repData || []} setRepDetailsData={setRepDetailsData}/>
+      <RepTableWorkSpace repTableData={repData || []} setRepDetailsData={setRepDetailsData} searchRep={searchRep} setSearchRep={setSearchRep}/>
       <RepDetailsWorkSpace repDetailsData={repDetailsData}/>
     </Box>
   );
