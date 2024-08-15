@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	AppBar,
 	Box,
@@ -8,34 +8,38 @@ import {
 } from '@mui/material';
 
 import styles from './AppTemplate.module.sass';
-import { SearchRepositoriesRequest, SearchRepositoriesResponse } from 'src/models/tasks';
 import { useGetRepositoriesMutation } from 'src/api/githubApi';
+import useAppDispatch from 'src/store/hooks/useAppDispatch';
+import { setReposData } from 'src/store/slices/reposData';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store/store';
+import { setSearchRepoRequest } from 'src/store/slices/searchRepoRequest';
 
 type Props = {
-	searchRep: SearchRepositoriesRequest;
-	setSearchRep: Dispatch<React.SetStateAction<SearchRepositoriesRequest>>;
-	setRepData: (data: SearchRepositoriesResponse) => void;
 	children: React.ReactNode;
 };
 
-const AppTemplate = ({ searchRep, setSearchRep, setRepData, children }: Props) => {
+const AppTemplate = ({ children }: Props) => {
+	const dispatch = useAppDispatch();
+	const searchRepoRequest = useSelector((state: RootState) => state.searchRepoRequest);
+
 	const [searchRepName, setSearchRepName] = useState('');
 
 	const [getRepositories] = useGetRepositoriesMutation();
 
 	useEffect(() => {
-		if (searchRep.query !== '') {
-			getRepositories(searchRep)
+		if (searchRepoRequest.query !== '') {
+			getRepositories(searchRepoRequest)
 				.unwrap()
 				.then((data) => {
-					setRepData(data);
+					dispatch(setReposData(data));
 				})
 				.catch(() => {});
 		}
-	}, [searchRep])
+	}, [searchRepoRequest])
 
 	const handleClick = () => {
-		setSearchRep({query: searchRepName, per_page: 7, page: 1});
+		dispatch(setSearchRepoRequest({query: searchRepName, per_page: 7, page: 1}));
 	};
 
 	return (

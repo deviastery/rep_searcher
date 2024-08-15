@@ -1,34 +1,27 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 
 import styles from './RepWorkSpace.module.sass';
-import { RepDetailsDataDto, Repository, SearchRepositoriesRequest } from 'src/models/tasks';
+import { Repository } from 'src/models/tasks';
 import RepDetailsWorkSpace from '../repositories-details/RepDetailsWorkSpace';
 import RepTableWorkSpace from '../repositories-table/RepTableWorkSpace';
 import { Row } from '@tanstack/table-core';
+import { RootState } from 'src/store/store';
+import { useSelector } from 'react-redux';
 
-type Props = {
-	repData: Repository[];
-  searchRep: SearchRepositoriesRequest;
-  setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
-  countResults: number;
-};
+const RepWorkSpace = () => {
+  const reposData = useSelector((state: RootState) => state.reposData);
 
-const RepWorkSpace = ({ repData, searchRep, setSearchRep, countResults }: Props) => {
   const [repDetailsData, setRepDetailsData] = useState<Row<Repository> | null>(null);
   
-  return !repData || !repData?.length ? (
+  return !reposData?.items || !reposData?.items?.length ? (
 		<Box className={styles.notData}>
 			Добро пожаловать
 		</Box>
 	) : (
     <Box className={styles.repWorkSpace}>
-      <RepTableWorkSpace 
-        repTableData={repData || []} 
-        setRepDetailsData={setRepDetailsData} 
-        searchRep={searchRep} 
-        setSearchRep={setSearchRep} 
-        countResults={countResults}
+      <RepTableWorkSpace
+        setRepDetailsData={setRepDetailsData}
       />
       <RepDetailsWorkSpace repDetailsData={repDetailsData}/>
     </Box>

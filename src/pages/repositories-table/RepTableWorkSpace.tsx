@@ -7,25 +7,25 @@ import BasicTable from 'src/shared/business/organisms/BasicTable';
 import { ColumnDef, Row } from '@tanstack/table-core';
 import GetRepTableColumns from '../repositories-search-results/repTableColumns';
 import Pagination from 'src/shared/business/organisms/Pagination';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/store/store';
 
 type Props = {
-	repTableData: Repository[];
-  searchRep: SearchRepositoriesRequest;
-  setSearchRep: Dispatch<SetStateAction<SearchRepositoriesRequest>>;
 	setRepDetailsData: React.Dispatch<SetStateAction<Row<Repository> | null>>;
-  countResults: number;
 };
 
-const RepTableWorkSpace = ({ repTableData, searchRep, setSearchRep, setRepDetailsData, countResults }: Props) => {
+const RepTableWorkSpace = ({ setRepDetailsData }: Props) => {
+  const repData = useSelector((state: RootState) => state.reposData);
+
   return (
     <Box className={styles.tableWorkSpace}>
         <Box className={styles.tableTitle}>Результаты поиска</Box>
         <BasicTable
-          data={repTableData}
+          data={repData.items}
           columns={GetRepTableColumns() as ColumnDef<Repository, string>[]}
           setRowData={setRepDetailsData}
         />
-        <Pagination pagesInfo={searchRep} setPagesInfo={setSearchRep} countResults={countResults}/>
+        <Pagination/>
     </Box>
   );
 }
