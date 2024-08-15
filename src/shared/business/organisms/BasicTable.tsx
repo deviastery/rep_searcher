@@ -1,20 +1,22 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, } from 'react';
 import { Box } from '@mui/material';
-import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, Row, useReactTable } from '@tanstack/react-table';
+import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, Row, SortingState, useReactTable } from '@tanstack/react-table';
 import styles from './BasicTable.module.sass';
-import { RepDetailsDataDto, Repository, RepTableDataDto } from 'src/models/tasks';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
-type Props = {
-	columns: Array<ColumnDef<Repository, string>>;
-	data: Repository[];
-	setRowData?: Dispatch<React.SetStateAction<Row<Repository> | null>>
+type Props<T, S> = {
+	columns: Array<ColumnDef<T, S>>;
+	data: T[];
+	setRowData?: Dispatch<React.SetStateAction<Row<T> | null>>;
 };
 
-const BasicTable = ({
+const BasicTable = <T, S>({
 	columns,
 	data,
 	setRowData,
-}: Props) => {
+}: Props<T, S>) => {
+	const [sorting, setSorting] = React.useState<SortingState>([])
 
 	const table = useReactTable({
 		data,
@@ -23,6 +25,11 @@ const BasicTable = ({
 		debugHeaders: true,
 		debugColumns: false,
 		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		onSortingChange: setSorting,
+		state: {
+			sorting,
+		},
 	});
 
 	return (
@@ -32,8 +39,20 @@ const BasicTable = ({
 					<thead key={headerGroup.id}>
 						<tr key={headerGroup.id} className={styles.tableHeaderRow}>
 							{headerGroup.headers.map((header) => (
-								<th key={header.id} className={styles.tableHeaderCell}>
-									{flexRender(header.column.columnDef.header, header.getContext())}
+								<th 
+									key={header.id} 
+									style={{ cursor: header.column.getCanSort() ? 'pointer' : 'default' }}
+									className={styles.tableHeaderCell}
+									onClick={header.column.getToggleSortingHandler()}
+								>
+									<Box className={styles.tableHeaderTitle}>
+										{header.column.getIsSorted() === 'asc' ? 
+											<ArrowUpwardIcon className={styles.tableHeaderIcon}/> : 
+											header.column.getIsSorted() === 'desc' ? 
+												<ArrowDownwardIcon className={styles.tableHeaderIcon} /> : 
+												null}
+										{flexRender(header.column.columnDef.header, header.getContext())}
+									</Box>
 								</th>
 							))}
 						</tr>
