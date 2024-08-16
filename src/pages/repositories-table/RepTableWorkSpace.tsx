@@ -11,7 +11,7 @@ import { RootState } from 'src/store/store';
 import styles from './RepTableWorkSpace.module.sass';
 
 type Props = {
-	setRepDetailsData: React.Dispatch<SetStateAction<Row<Repository> | null>>;
+	setRepDetailsData: React.Dispatch<SetStateAction<Row<Repository> | null>>; //функция, чтобы установить данные для деталей репозитория
 };
 
 const RepTableWorkSpace = ({ setRepDetailsData }: Props) => {

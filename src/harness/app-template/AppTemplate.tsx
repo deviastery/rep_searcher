@@ -20,19 +20,21 @@ const AppTemplate = ({ children }: Props) => {
 
 	const [getRepositories] = useGetRepositoriesMutation();
 
+	// Используем useEffect для отправки запроса на получение репозиториев при изменении запроса на поиск
 	useEffect(() => {
 		if (searchRepoRequest.query !== '') {
-			getRepositories(searchRepoRequest)
-				.unwrap()
+			// Проверяем, есть ли запрос на поиск
+			getRepositories(searchRepoRequest) // Отправляем запрос с помощью мутации
+				.unwrap() // Разрешаем промис, возвращаемый мутацией
 				.then((data) => {
-					dispatch(setReposData(data));
+					dispatch(setReposData(data)); // Обновляем данные репозиториев в Redux store
 				})
-				.catch();
+				.catch(); // Обрабатываем возможные ошибки
 		}
-	}, [searchRepoRequest]);
+	}, [searchRepoRequest]); // Зависимости useEffect - массив, который следит за изменениями запроса на поиск
 
 	const handleClick = () => {
-		dispatch(setSearchRepoRequest({ query: searchRepName, per_page: 7, page: 1 }));
+		dispatch(setSearchRepoRequest({ query: searchRepName, per_page: 7, page: 1 })); // Отправляем action для обновления запроса на поиск в Redux store
 	};
 
 	return (

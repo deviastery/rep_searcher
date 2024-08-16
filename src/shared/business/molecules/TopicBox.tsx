@@ -4,7 +4,7 @@ import styles from './TopicBox.module.sass';
 
 type Props = {
 	children: string;
-	styleOverrides?: React.CSSProperties;
+	styleOverrides?: React.CSSProperties; //новые стили
 };
 
 const TopicBox = ({ children, styleOverrides }: Props) => {

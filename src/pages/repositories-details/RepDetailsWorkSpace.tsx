@@ -7,7 +7,7 @@ import TopicBox from 'src/shared/business/molecules/TopicBox';
 import styles from './RepDetailsWorkSpace.module.sass';
 
 type Props = {
-	repDetailsData: Row<Repository> | null;
+	repDetailsData: Row<Repository> | null; //данныe для деталей репозитория
 };
 
 const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
@@ -17,6 +17,7 @@ const RepDetailsWorkSpace = ({ repDetailsData }: Props) => {
 
 	const { name, language, stargazers_count, topics, license } = repDetailsData.original;
 	const allTopics = language ? [language, ...topics] : topics;
+
 	return (
 		<Box className={styles.workSpace}>
 			<Box className={styles.tableTitle}>{name}</Box>
