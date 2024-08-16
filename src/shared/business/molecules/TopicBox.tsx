@@ -1,8 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import TablePagination from '@mui/material/TablePagination';
-import { SearchRepositoriesRequest } from 'src/models/tasks';
-import styles from './TopicBox.module.sass';
+import React from 'react';
 import { Box } from '@mui/material';
+import styles from './TopicBox.module.sass';
 
 type Props = {
 	children: string;
@@ -11,7 +9,9 @@ type Props = {
 
 const TopicBox = ({ children, styleOverrides }: Props) => {
 	return (
-		<Box className={styles.topicBox} style={styleOverrides}>{children}</Box>
+		<Box className={styles.topicBox} style={styleOverrides}>
+			{children}
+		</Box>
 	);
 };
 

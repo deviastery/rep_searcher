@@ -5,13 +5,12 @@ type Repository = {
 	description: string | null;
 	topics: string[];
 	html_url: string;
-	language: string | null; // Язык репозитория
-	forks_count: number;     // Число форков
-	stargazers_count: number; // Число звёзд
-	updated_at: string;       // Дата обновления
+	language: string | null;
+	forks_count: number;
+	stargazers_count: number;
+	updated_at: string;
 	license: {
-		name: string | null; // Название лицензии
-		// ... другие поля лицензии, если необходимо
+		name: string | null;
 	} | null;
 };
 
@@ -22,8 +21,8 @@ type SearchRepositoriesResponse = {
 };
 
 type SearchRepositoriesRequest = {
-	query: string; 
-	page?: number; 
+	query: string;
+	page?: number;
 	per_page?: number;
 };
 

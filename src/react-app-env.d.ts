@@ -3,4 +3,4 @@ declare module '*.svg';
 declare module '*.jpeg';
 declare module '*.jpg';
 declare module '*.ttf';
-declare module "*.module.sass";
+declare module '*.module.sass';

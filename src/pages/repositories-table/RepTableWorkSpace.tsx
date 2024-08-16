@@ -1,33 +1,38 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Box } from '@mui/material';
-
-import styles from './RepTableWorkSpace.module.sass';
-import { Repository, SearchRepositoriesRequest } from 'src/models/tasks';
-import BasicTable from 'src/shared/business/organisms/BasicTable';
-import { ColumnDef, Row } from '@tanstack/table-core';
-import GetRepTableColumns from '../repositories-search-results/repTableColumns';
-import Pagination from 'src/shared/business/organisms/Pagination';
+import React, { SetStateAction } from 'react';
 import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
+import { ColumnDef, Row } from '@tanstack/table-core';
+import { Repository } from 'src/models/repos';
+import GetRepTableColumns from 'src/pages/repositories-search-results/repTableColumns';
+import BasicTable from 'src/shared/business/organisms/BasicTable';
+import Pagination from 'src/shared/business/organisms/Pagination';
+import { setSearchRepoRequest } from 'src/store/slices/searchRepoRequest';
 import { RootState } from 'src/store/store';
+import styles from './RepTableWorkSpace.module.sass';
 
 type Props = {
 	setRepDetailsData: React.Dispatch<SetStateAction<Row<Repository> | null>>;
 };
 
 const RepTableWorkSpace = ({ setRepDetailsData }: Props) => {
-  const repData = useSelector((state: RootState) => state.reposData);
+	const reposData = useSelector((state: RootState) => state.reposData);
+	const searchRepoRequest = useSelector((state: RootState) => state.searchRepoRequest);
 
-  return (
-    <Box className={styles.tableWorkSpace}>
-        <Box className={styles.tableTitle}>Результаты поиска</Box>
-        <BasicTable
-          data={repData.items}
-          columns={GetRepTableColumns() as ColumnDef<Repository, string>[]}
-          setRowData={setRepDetailsData}
-        />
-        <Pagination/>
-    </Box>
-  );
-}
+	return (
+		<Box className={styles.tableWorkSpace}>
+			<Box className={styles.tableTitle}>Результаты поиска</Box>
+			<BasicTable
+				data={reposData.items}
+				columns={GetRepTableColumns() as ColumnDef<Repository, string>[]}
+				setRowData={setRepDetailsData}
+			/>
+			<Pagination
+				pagesInfo={searchRepoRequest}
+				setPagesInfo={setSearchRepoRequest}
+				countResults={reposData.total_count}
+			/>
+		</Box>
+	);
+};
 
 export default RepTableWorkSpace;
